@@ -15,7 +15,7 @@ defmodule HiPi.Application do
       [
         # Children for all targets
         # Starts a worker by calling: HiPi.Worker.start_link(arg)
-        {HiPi.Worker, []},
+        {Tuya.Session, []},
       ] ++ children(target())
 
     Supervisor.start_link(children, opts)

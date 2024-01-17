@@ -49,7 +49,7 @@ config :nerves_ssh,
 #
 # See https://github.com/nerves-networking/vintage_net for more information
 config :vintage_net,
-  regulatory_domain: "00",
+  regulatory_domain: "US",
   config: [
     {"usb0", %{type: VintageNetDirect}},
     {"eth0",
@@ -57,7 +57,15 @@ config :vintage_net,
        type: VintageNetEthernet,
        ipv4: %{method: :dhcp}
      }},
-    {"wlan0", %{type: VintageNetWiFi}}
+    {"wlan0",
+     %{
+       type: VintageNetWiFi,
+       wifi: %{
+         ssid: System.fetch_env!("WIFI_SSID"),
+         psk: System.fetch_env!("WIFI_PASSWORD")
+       },
+       ipv4: %{method: :dhcp}
+     }}
   ]
 
 config :mdns_lite,

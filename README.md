@@ -1,32 +1,27 @@
 # HiPi
 
-**TODO: Add description**
+Very much a WIP - initial goal is to toggle a smart outlet in my house when a Raspberry Pi powers on.
 
-## Targets
+This switch turning on triggers a broadcast on Google Home that I use to know when utility power returns
+while running on a generator.  (The rpi is plugged into an outlet that is hardwired to the utlity side of 
+the transfer switch)
 
-Nerves applications produce images for hardware targets based on the
-`MIX_TARGET` environment variable. If `MIX_TARGET` is unset, `mix` builds an
-image that runs on the host (e.g., your laptop). This is useful for executing
-logic tests, running utilities, and debugging. Other targets are represented by
-a short name like `rpi3` that maps to a Nerves system image for that platform.
-All of this logic is in the generated `mix.exs` and may be customized. For more
-information about targets see:
+What's wrong with this / could use work:
+  - Doesn't renew tokens (since it only really runs once)
+  - Waits for the network to come up by just delaying - should actually hook to the state change
+  - Isn't a real Req plugin (again LMK if you wanna see this broken out and made nice)
+  - Should generate a real nonce (hard-coded for now)
+  - Pretty much all of it, this represents a couple days effort to solve a specific problem
+    - There aren't tests, or documentation, etc
 
-https://hexdocs.pm/nerves/targets.html#content
+What it does / works
+  - Implements the mandatory parts of Tuya's request signing and request tokens to get some results
+  - Runs on my Pi Zero 2 W
 
-## Getting Started
-
-To start your Nerves app:
-  * `export MIX_TARGET=my_target` or prefix every command with
-    `MIX_TARGET=my_target`. For example, `MIX_TARGET=rpi3`
-  * Install dependencies with `mix deps.get`
-  * Create firmware with `mix firmware`
-  * Burn to an SD card with `mix burn`
-
-## Learn more
-
-  * Official docs: https://hexdocs.pm/nerves/getting-started.html
-  * Official website: https://nerves-project.org/
-  * Forum: https://elixirforum.com/c/nerves-forum
-  * Discussion Slack elixir-lang #nerves ([Invite](https://elixir-slackin.herokuapp.com/))
-  * Source: https://github.com/nerves-project/nerves
+What it needs to run for you
+  - If using on a Pi, you'll need to get the Nerves networking configured
+  - For Tuya, you need a dev account and a "project" that maps to your Tuya account
+    - That is, you'll need to be able to do control from the Tuya cloud console
+    - You'll need to supply environment variables (see `config.exs` for details)
+      - `TUYA_CLOUD_SECRET` and `TUYA_CLOUD_CLIENT_ID`, you get those from Tuya Cloud
+      - `TUYA_CLOUD_BASE_URL` unless you're OK with US West coast datacenter

@@ -34,7 +34,7 @@ defmodule HiPi.MixProject do
   def application do
     [
       mod: {HiPi.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :inets]
     ]
   end
 
@@ -47,6 +47,7 @@ defmodule HiPi.MixProject do
       {:ring_logger, "~> 0.10.0"},
       {:toolshed, "~> 0.3.0"},
       {:req, "~> 0.4.0"},
+      {:jason, "~> 1.4"},
 
       # Allow Nerves.Runtime on host to support development, testing and CI.
       # See config/host.exs for usage.

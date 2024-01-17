@@ -11,7 +11,7 @@ Application.start(:nerves_bootstrap)
 config :hi_pi, target: Mix.target()
 config :hi_pi, tuya_cloud_secret: System.get_env("TUYA_CLOUD_SECRET")
 config :hi_pi, tuya_cloud_client_id: System.get_env("TUYA_CLOUD_CLIENT_ID")
-config :hi_pi, tuya_cloud_base_url: System.get_env("TUYA_CLOUD_BASE_URL")
+config :hi_pi, tuya_cloud_base_url: System.get_env("TUYA_CLOUD_BASE_URL") || "https://openapi.tuyaus.com"
 
 # Customize non-Elixir parts of the firmware. See
 # https://hexdocs.pm/nerves/advanced-configuration.html for details.
